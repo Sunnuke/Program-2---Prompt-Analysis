@@ -10,7 +10,7 @@
 
 using namespace std;
 
-const in NUM_SERVERS = 5;
+const int NUM_SERVERS = 5;
 static int ps = 0;         // the process ID incrementer, static so one copy persists
 
 request createRandomRequest()
