@@ -74,7 +74,7 @@ int main()
             if (rand() % 10 == 0)
             {
                 request r = (createRandomRequest());
-                lb.adRequest(r);
+                lb.addRequest(r);
             }
             lb.incTime();
     }
