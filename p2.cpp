@@ -11,12 +11,13 @@
 using namespace std;
 
 const in NUM_SERVERS = 5;
-static int ps = 0;
+static int ps = 0;         // the process ID incrementer, static so one copy persists
 
 request createRandomRequest()
 {
     stringstream ips, ipd;
     request r;
+    // For example, 12.243.87.112
     ips << (rand() % 256) << "." << (rand() % 256) << "." << (rand() % 256) << "." << (rand() % 256);
     ipd << (rand() % 256) << "." << (rand() % 256) << "." << (rand() % 256) << "." << (rand() % 256);
     r.source = ips.str();
@@ -41,7 +42,7 @@ int main()
         lb.addRequest(r);
     }
 
-    // an array of webservers
+    // an array of webservers, each given an initial request to process
     webserver webarray[NUM_SERVERS];
     for (int i = 0; i < NUM_SERVERS; ++i)
     {
@@ -58,8 +59,9 @@ int main()
         // check each webserver if it's done
         if (webarray[currTime % NUM_SERVERS].isRequestDone(currTime))
         {
+            // get request from the server
             request r = webarray[currTime % NUM_SERVERS].getRequest();
-            //print
+            //print some stats
             cout << "Finished at " << currTime << " " << webarray[currTime % NUM_SERVERS].getName();
             cout << " pid " << r.pid << "/" << size << " process time was " << r.processTime ;
             cout << " processed request from " << r.source << " to " << r.destination ;
